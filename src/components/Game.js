@@ -1,17 +1,13 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { items } from "./data";
+import { GameContext } from "./GameContext";
 
 import useInterval from "../hooks/use-interval.hook";
 
 import cookieSrc from "../cookie.svg";
 import Item from "./Item";
-
-const items = [
-  { id: "cursor", name: "Cursor", cost: 10, value: 1 },
-  { id: "grandma", name: "Grandma", cost: 100, value: 10 },
-  { id: "farm", name: "Farm", cost: 1000, value: 80 },
-];
 
 const calculateCookiesPerSecond = (purchasedItems) => {
   return Object.keys(purchasedItems).reduce((acc, itemId) => {
@@ -24,14 +20,13 @@ const calculateCookiesPerSecond = (purchasedItems) => {
 };
 
 const Game = () => {
-  const [numCookies, setNumCookies] = React.useState(1000);
-
-  const [purchasedItems, setPurchasedItems] = React.useState({
-    cursor: 0,
-    grandma: 0,
-    farm: 0,
-  });
-
+  const {
+    numCookies,
+    setNumCookies,
+    purchasedItems,
+    setPurchasedItems,
+  } = useContext(GameContext);
+  // console.log(numCookies, purchasedItems);
   const incrementCookies = () => {
     setNumCookies((c) => c + 1);
   };
